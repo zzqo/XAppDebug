@@ -13,8 +13,12 @@
     <string name="menu_apps">Apps</string>
     <string name="menu_about">About</string>
 
+    <string name="action_app_language">AppLanguage</string>
+    <string name="action_language_en">English</string>
+    <string name="action_language_zh">中文</string>
+    <string name="action_language_tw">繁体</string>
+
     <string name="action_search">Search</string>
-    <string name="action_refresh">Refresh</string>
     <string name="action_view_options">View Options</string>
     <string name="action_title_sorting">Sorting</string>
     <string name="action_sort_label">Application label</string>

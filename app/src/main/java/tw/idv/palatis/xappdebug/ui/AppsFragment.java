@@ -1,5 +1,7 @@
 package tw.idv.palatis.xappdebug.ui;
 
+import static tw.idv.palatis.xappdebug.Constants.LOG_TAG;
+import static tw.idv.palatis.xappdebug.Constants.PREF_KEY_APP_LANGUAGE;
 import static tw.idv.palatis.xappdebug.Constants.PREF_KEY_SHOW_DEBUG;
 import static tw.idv.palatis.xappdebug.Constants.PREF_KEY_SHOW_DEBUGGABLE_FIRST;
 import static tw.idv.palatis.xappdebug.Constants.PREF_KEY_SHOW_SYSTEM;
@@ -11,6 +13,9 @@ import static tw.idv.palatis.xappdebug.Constants.SORT_ORDER_UPDATE_TIME;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +29,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.util.Locale;
 
 import tw.idv.palatis.xappdebug.R;
 import tw.idv.palatis.xappdebug.adapters.InstalledPackageAdapter;
@@ -34,16 +42,30 @@ public class AppsFragment extends Fragment {
     private AppsViewModel mAppsViewModel;
     private SharedPreferences mSharedPreferences;
     private InstalledPackageAdapter mAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
 
         mAppsViewModel = new ViewModelProvider(requireActivity()).get(AppsViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_apps, container, false);
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_layout);
         final RecyclerView packages = root.findViewById(R.id.packages);
         mAdapter = new InstalledPackageAdapter(requireContext().getPackageManager(), mSharedPreferences);
         packages.setAdapter(mAdapter);
+
+        // 设置下拉刷新监听
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // 执行刷新操作，例如重新加载数据
+            mAppsViewModel.updatePackageList(requireContext());
+
+            // 停止刷新动画（你可以在数据加载完成后调用）
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, 200); // 模拟延迟
+        });
 
         mAppsViewModel.getInstalledPackages().observe(
                 getViewLifecycleOwner(),
@@ -100,9 +122,6 @@ public class AppsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
-                mAppsViewModel.updatePackageList(requireContext());
-                return true;
             case R.id.action_sort_label:
                 mSharedPreferences.edit().putInt(PREF_KEY_SORT_ORDER, SORT_ORDER_LABEL).apply();
                 requireActivity().invalidateOptionsMenu();
@@ -137,9 +156,26 @@ public class AppsFragment extends Fragment {
                         .apply();
                 requireActivity().invalidateOptionsMenu();
                 return true;
+            case R.id.action_language_en:
+                showLanguage("en");
+                return true;
+            case R.id.action_language_zh:
+                showLanguage("zh");
+                return true;
+            case R.id.action_language_tw:
+                Log.e(LOG_TAG, "----------------------------"+ Locale.TAIWAN);
+                showLanguage("tw");
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void showLanguage(String languageCode){
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putString(PREF_KEY_APP_LANGUAGE, languageCode);
+        editor.apply();
 
+        // 重启 Activity 以生效语言设置
+        requireActivity().recreate();
+    }
 }

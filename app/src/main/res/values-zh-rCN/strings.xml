@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">XAppDebug</string>
+    <string name="app_xposed_description">使应用程序可调试！</string>
+
+    <string name="title_activity_main">@string/app_name</string>
+    <string name="navigation_drawer_open">打开侧边栏</string>
+    <string name="navigation_drawer_close">关闭侧边栏</string>
+    <string name="nav_header_title">@string/app_name</string>
+    <string name="nav_header_subtitle">@string/app_xposed_description</string>
+    <string name="nav_header_desc">侧边栏标题</string>
+
+    <string name="menu_apps">应用程序</string>
+    <string name="menu_about">关于</string>
+
+    <string name="action_app_language">应用语言</string>
+    <string name="action_language_en">English</string>
+    <string name="action_language_zh">中文</string>
+    <string name="action_language_tw">繁体</string>
+
+    <string name="action_search">搜索</string>
+    <string name="action_view_options">视图选项</string>
+    <string name="action_title_sorting">排序</string>
+    <string name="action_sort_label">应用程序标题</string>
+    <string name="action_sort_package_name">包名称</string>
+    <string name="action_sort_install_time">安装时间</string>
+    <string name="action_sort_update_time">更新时间</string>
+    <string name="action_title_options">选项</string>
+    <string name="action_debuggable_first">优先显示可调试的</string>
+    <string name="action_show_system">显示系统应用</string>
+    <string name="action_show_debug">显示可调试应用程序</string>
+
+    <string name="restart_required">重启应用程序使其生效！</string>
+    <string name="dismiss">朕知道了！</string>
+
+    <string name="app_version">版本：%s</string>
+    <string name="xposed_version">Xposed 版本：%d</string>
+    <string name="xposed_not_found">Xposed 框架未启用</string>
+    <string name="visit_github">GitHub</string>
+</resources>

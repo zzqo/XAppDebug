@@ -9,10 +9,22 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_refresh"
-        android:icon="@drawable/ic_menu_refresh"
-        android:title="@string/action_refresh"
-        app:showAsAction="always" />
+        android:id="@+id/action_language"
+        android:icon="@drawable/ic_menu_language"
+        android:title="@string/action_app_language"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_language_en"
+                android:title="@string/action_language_en" />
+            <item
+                android:id="@+id/action_language_zh"
+                android:title="@string/action_language_zh" />
+            <item
+                android:id="@+id/action_language_tw"
+                android:title="@string/action_language_tw" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/action_view_options"

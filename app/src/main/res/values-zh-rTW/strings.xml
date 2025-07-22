@@ -13,8 +13,12 @@
     <string name="menu_apps">應用程式</string>
     <string name="menu_about">關於</string>
 
+    <string name="action_app_language">應用語言</string>
+    <string name="action_language_en">English</string>
+    <string name="action_language_zh">中文</string>
+    <string name="action_language_tw">繁体</string>
+
     <string name="action_search">搜尋</string>
-    <string name="action_refresh">重新整理</string>
     <string name="action_view_options">檢視選項</string>
     <string name="action_title_sorting">排序</string>
     <string name="action_sort_label">應用程式標題</string>
